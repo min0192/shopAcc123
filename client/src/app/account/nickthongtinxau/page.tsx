@@ -1,0 +1,14 @@
+import ProductList from "@/components/product/ProductList";
+
+export default async function NickThongTinXauPage() {
+  const categoryId = '6832edbb15cb99b9141f05ad';
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products?category=${categoryId}`, { cache: "no-store" });
+  const products = await res.json();
+
+  return (
+    <div className="container mx-auto py-8">
+      <h1 className="text-2xl font-bold mb-4">Nick liên quân thông tin xấu</h1>
+      <ProductList products={products} />
+    </div>
+  );
+} 
