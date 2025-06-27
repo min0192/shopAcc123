@@ -1,9 +1,10 @@
 import ProductList from "@/components/product/ProductList";
+import { getProductsByCategory } from "@/getApi/productApi";
+import { Product } from "@/types/product";
 
 export default async function FreeFirePage() {
   const categoryId = '6832edbb15cb99b9141f05ac';
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products?category=${categoryId}`, { cache: "no-store" });
-  const products = await res.json();
+  const products = (await getProductsByCategory(categoryId)) as Product[];
 
   return (
     <div className="container mx-auto py-8">

@@ -4,27 +4,7 @@ import { Product } from "@/types/product";
 import ImageGallery from "@/components/product/ImageGallery";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react";
-
-async function getProduct(id: string) {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/products/${id}`,
-      {
-        cache: "no-store",
-        next: { revalidate: 0 },
-      }
-    );
-
-    if (!res.ok) {
-      return null;
-    }
-
-    return res.json();
-  } catch (error) {
-    console.error("Error fetching product:", error);
-    return null;
-  }
-}
+import { getProductById } from "@/getApi/productApi";
 
 async function getSuggestedProducts(
   categoryId: string,
@@ -55,8 +35,8 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { id: productId } = await params;
-  const product = await getProduct(productId);
+  const { id: productId } = params;
+  const product = (await getProductById(productId)) as Product | null;
   
   if (!product) {
     return {
@@ -71,8 +51,8 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function ProductDetailPage({ params }: Props) {
-  const { id: productId } = await params;
-  const product = await getProduct(productId);
+  const { id: productId } = params;
+  const product = (await getProductById(productId)) as Product | null;
 
   if (!product) {
     notFound();

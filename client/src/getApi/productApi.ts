@@ -90,3 +90,13 @@ export const deleteProduct = async (id: string) => {
     throw error;
   }
 };
+
+export const getProductsByCategory = async (categoryId: string) => {
+  try {
+    console.log(API_URL);
+    const res = await axios.get(`${API_URL}/products?category=${categoryId}`);
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
