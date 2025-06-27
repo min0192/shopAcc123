@@ -29,13 +29,11 @@ async function getSuggestedProducts(
 }
 
 interface Props {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { id: productId } = params;
+  const { id: productId } = await params;
   const product = (await getProductById(productId)) as Product | null;
   
   if (!product) {
@@ -51,7 +49,7 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function ProductDetailPage({ params }: Props) {
-  const { id: productId } = params;
+  const { id: productId } = await params;
   const product = (await getProductById(productId)) as Product | null;
 
   if (!product) {
