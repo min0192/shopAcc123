@@ -12,9 +12,9 @@ const axiosInstance = axios.create({
 // GET /api/products/[id]
 export async function GET(
   request: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
-  const id = context?.params?.id;
+  const id = params.id;
   if (!id) {
     return NextResponse.json(
       { error: 'Product ID is required' },
@@ -39,9 +39,8 @@ export async function GET(
 // PUT /api/products/[id]
 export async function PUT(
   request: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
-    const params = await context.params;
   const id = params.id;
   if (!id) {
     return NextResponse.json(
@@ -118,10 +117,9 @@ export async function PUT(
 // DELETE /api/products/[id]
 export async function DELETE(
   request: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
-    const params = await context.params;
-    const id = params.id;
+  const id = params.id;
   if (!id) {
     return NextResponse.json(
       { error: 'Product ID is required' },
