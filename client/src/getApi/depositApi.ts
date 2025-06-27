@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
 export const createPayOSDeposit = async (amount: number) => {
   const token = getCookie("infor");
