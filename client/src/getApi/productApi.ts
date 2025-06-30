@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Product } from '@/types/product';
 import { getCookie } from "cookies-next/client";
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+const API_URL = process.env.NEXT_PUBLIC_API_URL
 // Lấy tất cả sản phẩm
 export const getAllProducts = async () => {
   try {

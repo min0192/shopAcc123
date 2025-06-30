@@ -19,8 +19,8 @@ export const createPayOSOrder = async ({ amount, description }: { amount: number
     amount,
     description,
     orderCode: Math.floor(Math.random() * 1000000000),
-    returnUrl: 'https://localhost:3000',
-    cancelUrl: 'https://localhost:3000',
+    returnUrl: 'https://shoptmin.com',
+    cancelUrl: 'https://shoptmin.com',
     webhookUrl,
   };
   console.log("Sending order to PayOS:", order); // 👈 THÊM DÒNG NÀY
