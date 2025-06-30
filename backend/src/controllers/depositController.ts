@@ -22,7 +22,7 @@ export const createPendingDeposit = async (req: Request, res: Response) => {
     const paymentData = {
         orderCode,
         amount,
-        description: `Thanh toan don hang ${orderCode}`,
+        description: `dtm${orderCode}`,
         returnUrl: `${process.env.CLIENT_URL}/nap-tien`,
         cancelUrl: `${process.env.CLIENT_URL}/nap-tien`,
     };
