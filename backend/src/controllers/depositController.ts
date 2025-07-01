@@ -16,7 +16,7 @@ export const createPendingDeposit = async (req: Request, res: Response) => {
       userId: req.user.id,
       amount,
       orderCode: orderCode,
-      description: `dtm${orderCode}`,
+      transferContent: `dtm${orderCode}`,
       status: 'pending',
     });
 
@@ -24,13 +24,13 @@ export const createPendingDeposit = async (req: Request, res: Response) => {
         orderCode,
         amount,
         description: `dtm${orderCode}`,
-        returnUrl: `${process.env.CLIENT_URL}/nap-tien`,
+        returnUrl: `${process.env.CLIENT_URL}`,
         cancelUrl: `${process.env.CLIENT_URL}/nap-tien`,
     };
 
     const paymentLink = await payOS.createPaymentLink(paymentData);
 
-    res.status(201).json({ ...pending.toObject(), checkoutUrl: paymentLink.checkoutUrl });
+    res.status(201).json({ ...pending.toObject(), checkoutUrl: paymentLink.checkoutUrl, transferContent: pending.transferContent });
   } catch (e) {
     console.error("❌ Error in createPendingDeposit:", e);
     res.status(500).json({ message: 'Server error' });
