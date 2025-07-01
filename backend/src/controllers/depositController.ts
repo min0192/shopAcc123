@@ -11,26 +11,27 @@ export const createPendingDeposit = async (req: Request, res: Response) => {
 
   try {
     const orderCode = Number(String(new Date().getTime()).slice(-6));
+    const transferContent = `dtm${orderCode}`;
 
     const pending = await PendingDeposit.create({
       userId: req.user.id,
       amount,
-      orderCode: orderCode,
-      transferContent: `dtm${orderCode}`,
+      orderCode,
+      transferContent,
       status: 'pending',
     });
 
     const paymentData = {
-        orderCode,
-        amount,
-        description: `dtm${orderCode}`,
-        returnUrl: `${process.env.CLIENT_URL}`,
-        cancelUrl: `${process.env.CLIENT_URL}/nap-tien`,
+      orderCode,
+      amount,
+      description: transferContent,
+      returnUrl: `${process.env.CLIENT_URL}`,
+      cancelUrl: `${process.env.CLIENT_URL}/nap-tien`,
     };
 
     const paymentLink = await payOS.createPaymentLink(paymentData);
 
-    res.status(201).json({ ...pending.toObject(), checkoutUrl: paymentLink.checkoutUrl, transferContent: pending.transferContent });
+    res.status(201).json({ ...pending.toObject(), checkoutUrl: paymentLink.checkoutUrl, transferContent });
   } catch (e) {
     console.error("❌ Error in createPendingDeposit:", e);
     res.status(500).json({ message: 'Server error' });
@@ -38,18 +39,20 @@ export const createPendingDeposit = async (req: Request, res: Response) => {
 };
 
 export const handleWebhook = async (req: Request, res: Response) => {
-    const webhookBody = req.body;
+  const webhookBody = req.body;
   try {
     const verifiedData = payOS.verifyPaymentWebhookData(webhookBody);
-    console.log('verifiedData:', verifiedData);
+    console.log('✅ Webhook verifiedData:', verifiedData);
+
     if (verifiedData.code !== '00') {
-        console.log(`Webhook for order ${verifiedData.orderCode} received, but payment not successful. Status: ${verifiedData.code}`);
-        await PendingDeposit.findOneAndUpdate({ orderCode: verifiedData.orderCode }, { status: 'failed' });
-        return res.status(200).json({ message: 'Payment not successful' });
+      console.log(`⚠️ Webhook for order ${verifiedData.orderCode} not successful. Status: ${verifiedData.code}`);
+      await PendingDeposit.findOneAndUpdate({ orderCode: verifiedData.orderCode }, { status: 'failed' });
+      return res.status(200).json({ message: 'Payment not successful' });
     }
 
     const deposit = await PendingDeposit.findOne({
-      orderCode: verifiedData.orderCode,
+      transferContent: verifiedData.description,
+      amount: verifiedData.amount,
       status: 'pending',
     });
 
@@ -70,7 +73,7 @@ export const handleWebhook = async (req: Request, res: Response) => {
     deposit.status = 'completed';
     await deposit.save();
 
-    console.log(`✅ Webhook: Deposit ${verifiedData.description} confirmed. Amount: ${verifiedData.amount}, User: ${user._id}`);
+    console.log(`✅ Deposit confirmed. Amount: ${verifiedData.amount}, User: ${user._id}`);
     return res.status(200).json({ message: 'Balance updated' });
 
   } catch (e) {
