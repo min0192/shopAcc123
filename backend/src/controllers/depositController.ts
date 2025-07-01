@@ -16,6 +16,7 @@ export const createPendingDeposit = async (req: Request, res: Response) => {
       userId: req.user.id,
       amount,
       orderCode: orderCode,
+      description: `dtm${orderCode}`,
       status: 'pending',
     });
 
