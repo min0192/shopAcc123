@@ -41,7 +41,7 @@ export const handleWebhook = async (req: Request, res: Response) => {
     const webhookBody = req.body;
   try {
     const verifiedData = payOS.verifyPaymentWebhookData(webhookBody);
-
+    console.log('verifiedData:', verifiedData);
     if (verifiedData.code !== '00') {
         console.log(`Webhook for order ${verifiedData.orderCode} received, but payment not successful. Status: ${verifiedData.code}`);
         await PendingDeposit.findOneAndUpdate({ orderCode: verifiedData.orderCode }, { status: 'failed' });
@@ -74,7 +74,7 @@ export const handleWebhook = async (req: Request, res: Response) => {
     return res.status(200).json({ message: 'Balance updated' });
 
   } catch (e) {
-    console.error("❌ Webhook handler error:", e);
+    console.error("❌ Webhook handler error:", e, JSON.stringify(req.body));
     return res.status(200).json({ message: 'Webhook error handled gracefully' });
   }
 };
