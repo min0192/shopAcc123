@@ -110,7 +110,9 @@ export default async function ProductDetailPage({ params }: Props) {
       {suggestedProducts.length > 0 && (
         <div className="mt-12">
           <h2 className="text-2xl font-bold mb-6">Sản phẩm tương tự</h2>
-          <ProductList products={suggestedProducts} hideFilter />
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <ProductList products={suggestedProducts} hideFilter />
+          </div>
         </div>
       )}
     </div>

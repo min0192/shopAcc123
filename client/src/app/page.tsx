@@ -11,9 +11,9 @@ export default async function Home() {
         {/* Banner and Top-up Section */}
         <section className="py-8">
           <div className="container mx-auto px-4">
-            <div className="flex gap-4">
+            <div className="flex flex-col md:flex-row gap-4">
               {/* Banner - 2/3 width */}
-              <div className="w-3/4">
+              <div className="w-full md:w-3/4">
                 <Image
                   src="/images/banner.png"
                   alt="Shop banner"
@@ -24,7 +24,7 @@ export default async function Home() {
               </div>
 
               {/* Top-up Section - 1/3 width */}
-              <div className="w-1/4 bg-[#003a8c] p-4 rounded-lg shadow-lg">
+              <div className="w-full md:w-1/4 bg-[#003a8c] p-4 rounded-lg shadow-lg mt-4 md:mt-0">
                 <h3 className="text-xl font-bold mb-4 text-center text-white">
                   Top nạp tiền
                 </h3>

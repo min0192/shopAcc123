@@ -1,15 +1,31 @@
 "use client";
-import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { UserPlusIcon, UserIcon, BanknotesIcon } from '@heroicons/react/24/outline';
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { UserPlusIcon, UserIcon, BanknotesIcon } from "@heroicons/react/24/outline";
 import { userJwtPayload } from "@/types/userJwtPayload";
-import { deleteCookie } from "cookies-next/client";
-import { getCookie } from "cookies-next/client";
+import { deleteCookie, getCookie } from "cookies-next/client";
 import jwt from "jsonwebtoken";
+import { Button } from "@/components/ui/button";
 
+// Placeholder Menu icon (simple SVG)
+const Menu = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" {...props}>
+    <rect x="4" y="6" width="16" height="2" rx="1" fill="currentColor" />
+    <rect x="4" y="11" width="16" height="2" rx="1" fill="currentColor" />
+    <rect x="4" y="16" width="16" height="2" rx="1" fill="currentColor" />
+  </svg>
+);
 
-const Header = () => {
+const navLinks = [
+  { href: "/nap-tien", label: "NẠP TIỀN" },
+  { href: "/lich-su-nap", label: "LỊCH SỬ NẠP" },
+  { href: "/tin-tuc", label: "TIN TỨC" },
+  { href: "/cay-rank", label: "CÀY RANK" },
+  { href: "/mua-the", label: "MUA THẺ" },
+];
+
+export default function Header() {
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [userData, setUserData] = useState<userJwtPayload | null>(null);
 
   useEffect(() => {
@@ -28,92 +44,121 @@ const Header = () => {
   const isAuthenticated = !!userData;
 
   return (
-    <header className="bg-[#19171b] text-[#fafafa]">
-      <div className="max-w-[1200px] mx-auto px-4">
-        {/* Top row with logo and main nav */}
-        <div className="flex items-center justify-between h-14">
-          {/* Logo Section */}
-          <div className="flex items-center">
-            <Image 
-              src="/images/logo.png"
-              alt="shoptmin"
-              width={120}
-              height={16}
-              className="mt-1.5"
-            />
-            <h2 className="text-[#fafafa] no-underline font-medium hover:text-blue-400 transition-colors">ShopTmin.com</h2>
-          </div>
-
-          {/* Main Navigation */}
-          <nav className="flex items-center gap-6">
-            <Link 
-              href="/nap-tien" 
-              className="text-[#fafafa] no-underline font-medium hover:text-blue-400 transition-colors"
+    <header className="w-full min-h-[64px] shadow-md sticky top-0 z-50 bg-white border-b border-[#eee]">
+      <div className="container mx-auto px-2 sm:px-4 flex items-center justify-between h-16">
+        <Link href="/" className="flex items-center gap-2">
+          <img
+            src="/images/logo.png"
+            alt="ShopTmin Logo"
+            width={46}
+            height={46}
+            className="rounded-full bg-[#bcab96]"
+          />
+          <span className="font-bold text-[22px] text-[#090c12] hidden sm:block">ShopTmin.com</span>
+        </Link>
+        <nav className="hidden md:flex gap-2 xl:gap-4 mx-2 flex-1 justify-center">
+          {navLinks.map(link => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="px-3 py-2 rounded-md text-[#5e383e] font-medium hover:bg-[#bcab96]/10 transition-colors text-sm"
             >
-              NẠP TIỀN
+              {link.label}
             </Link>
-            <Link 
-              href="/lich-su-nap" 
-              className="text-[#fafafa] no-underline font-medium hover:text-blue-400 transition-colors"
-            >
-              LỊCH SỬ NẠP
-            </Link>
-            <Link 
-              href="/tin-tuc" 
-              className="text-[#fafafa] no-underline font-medium hover:text-blue-400 transition-colors"
-            >
-              TIN TỨC
-            </Link>
-            <Link 
-              href="/cay-rank" 
-              className="text-[#fafafa] no-underline font-medium hover:text-blue-400 transition-colors"
-            >
-              CÀY RANK
-            </Link>
-            <Link 
-              href="/mua-the" 
-              className="text-[#fafafa] no-underline font-medium hover:text-blue-400 transition-colors"
-            >
-              MUA THẺ
-            </Link>
-          </nav>
-        </div>
-
-        {/* Bottom row with auth buttons */}
-        <div className="flex items-center justify-end gap-4 h-10 border-t border-gray-700">
-          <div className="text-yellow-400 font-medium flex items-center gap-1">
+          ))}
+        </nav>
+        <div className="flex items-center gap-3">
+          <div className="text-yellow-400 font-medium flex items-center gap-1 hidden sm:flex">
             <BanknotesIcon className="w-5 h-5" />
             Số dư: {userData?.balance ? userData?.balance.toLocaleString('vi-VN') : '0'} VNĐ
           </div>
           {isAuthenticated ? (
             <>
-              <Link 
-                href="/profile" 
-                className="flex items-center gap-2 text-[#499bd2] bg-white rounded px-4 py-1.5 font-bold hover:bg-gray-100 transition-colors"
+              <Link
+                href="/profile"
+                className="h-8 w-8 flex items-center justify-center rounded-full border border-[#eee]"
               >
-                <UserIcon className="w-5 h-5" />
-                {userData?.name}
+                <UserIcon className="h-7 w-7 rounded-full text-[#499bd2]" />
               </Link>
-              <button
+              <Button
+                variant="outline"
+                className="px-4 py-2 border-[#47afc3] text-[#47afc3] font-semibold hover:bg-[#47afc3]/10 rounded-lg hidden sm:block"
                 onClick={handleLogout}
-                className="flex items-center gap-2 text-white font-bold hover:text-blue-400 transition-colors"
               >
-                <UserPlusIcon className="w-5 h-5" />
                 Đăng xuất
-              </button>
+              </Button>
             </>
           ) : (
             <>
-              <Link 
-                href="/login" 
-                className="flex items-center gap-2 text-[#499bd2] bg-white rounded px-4 py-1.5 font-bold hover:bg-gray-100 transition-colors"
+              <Link
+                href="/login"
+                className="flex items-center gap-2 text-[#499bd2] bg-white rounded px-4 py-1.5 font-bold hover:bg-gray-100 transition-colors hidden sm:block"
               >
                 <UserIcon className="w-5 h-5" />
                 Đăng nhập
               </Link>
-              <Link 
-                href="/register" 
-                className="flex items-center gap-2 text-white font-bold hover:text-blue-400 transition-colors"
+              <Link
+                href="/register"
+                className="flex items-center gap-2 text-white font-bold hover:text-blue-400 transition-colors hidden sm:block"
+              >
+                <UserPlusIcon className="w-5 h-5" />
+                Đăng ký
+              </Link>
+            </>
+          )}
+          <button className="md:hidden ml-2" onClick={() => setMobileOpen(v => !v)}>
+            <Menu className="h-7 w-7 text-[#47afc3]" />
+          </button>
+        </div>
+      </div>
+      {mobileOpen && (
+        <div className="md:hidden absolute top-16 left-0 right-0 bg-white shadow flex flex-col items-start p-4 z-40 gap-2 border-b">
+          {navLinks.map(link => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="w-full px-3 py-2 rounded-md text-[#5e383e] font-medium hover:bg-[#bcab96]/10 transition-colors text-base"
+              onClick={() => setMobileOpen(false)}
+            >
+              {link.label}
+            </Link>
+          ))}
+          <div className="text-yellow-400 font-medium flex items-center gap-1 my-2">
+            <BanknotesIcon className="w-5 h-5" />
+            Số dư: {userData?.balance ? userData?.balance.toLocaleString('vi-VN') : '0'} VNĐ
+          </div>
+          {isAuthenticated ? (
+            <>
+              <Link
+                href="/profile"
+                className="flex items-center gap-2 text-[#499bd2] bg-white rounded px-4 py-1.5 font-bold hover:bg-gray-100 transition-colors w-full"
+                onClick={() => setMobileOpen(false)}
+              >
+                <UserIcon className="w-5 h-5" />
+                {userData?.name}
+              </Link>
+              <Button
+                variant="outline"
+                className="w-full my-1 border-[#47afc3] text-[#47afc3] font-semibold hover:bg-[#47afc3]/10 rounded-lg"
+                onClick={() => { handleLogout(); setMobileOpen(false); }}
+              >
+                Đăng xuất
+              </Button>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className="flex items-center gap-2 text-[#499bd2] bg-white rounded px-4 py-1.5 font-bold hover:bg-gray-100 transition-colors w-full"
+                onClick={() => setMobileOpen(false)}
+              >
+                <UserIcon className="w-5 h-5" />
+                Đăng nhập
+              </Link>
+              <Link
+                href="/register"
+                className="flex items-center gap-2 text-white font-bold hover:text-blue-400 transition-colors w-full"
+                onClick={() => setMobileOpen(false)}
               >
                 <UserPlusIcon className="w-5 h-5" />
                 Đăng ký
@@ -121,9 +166,7 @@ const Header = () => {
             </>
           )}
         </div>
-      </div>
+      )}
     </header>
   );
-};
-
-export default Header;
+}
