@@ -1,11 +1,16 @@
-// backend/src/utils/firebaseAdmin.ts
+// src/utils/firebaseAdmin.ts
 import admin from 'firebase-admin';
-import serviceAccount from '../config/datashop-1-firebase-adminsdk-fbsvc-06a4422795.json';
+import dotenv from 'dotenv';
+dotenv.config();
 
 if (!admin.apps.length) {
   admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount as any),
-    storageBucket: 'datashop-1.firebasestorage.app', // Thay bằng bucket của bạn
+    credential: admin.credential.cert({
+      projectId: process.env.FIREBASE_PROJECT_ID,
+      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+      privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+    }),
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
   });
 }
 
