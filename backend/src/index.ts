@@ -20,6 +20,7 @@ app.use(express.json());
 
 // Create uploads directory if it doesn't exist
 import fs from 'fs';
+import { cancelExpiredDeposits } from './controllers/depositController';
 const uploadsDir = path.join(__dirname, '../uploads');
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
@@ -54,3 +55,6 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 }); 
+setInterval(() => {
+  cancelExpiredDeposits().catch(console.error);
+}, 5 * 60 * 1000);

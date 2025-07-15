@@ -81,3 +81,22 @@ export const handleWebhook = async (req: Request, res: Response) => {
     return res.status(200).json({ message: 'Webhook error handled gracefully' });
   }
 };
+
+export const cancelExpiredDeposits = async () => {
+  const THIRTY_MINUTES = 30 * 60 * 1000;
+  const now = new Date();
+
+  // Tìm các deposit "pending" quá 30 phút
+  const expiredDeposits = await PendingDeposit.find({
+    status: 'pending',
+    createdAt: { $lte: new Date(now.getTime() - THIRTY_MINUTES) }
+  });
+
+  if (expiredDeposits.length > 0) {
+    for (const deposit of expiredDeposits) {
+      deposit.status = 'failed';
+      await deposit.save();
+      console.log(`Deposit ${deposit._id} expired and set to failed.`);
+    }
+  }
+};
