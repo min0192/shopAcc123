@@ -10,7 +10,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyA5SaI-M88HXPNVFg66AOQBvX-eI8B-_H0",
   authDomain: "datashop-1.firebaseapp.com",
   projectId: "datashop-1",
-  storageBucket: "datashop-1.firebasestorage.app",
+  storageBucket: "datashop-1.appspot.app",
   messagingSenderId: "69967607455",
   appId: "1:69967607455:web:265c24002c6ad52d4f14aa",
   measurementId: "G-JXZJH5E460"
