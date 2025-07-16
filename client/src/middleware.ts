@@ -55,7 +55,13 @@ export async function middleware(request: NextRequest) {
     }
     return NextResponse.next();
   }
-
+// Handle /nap-tien route
+if (path.startsWith('/nap-tien')) {
+  if (!decoded) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+  return NextResponse.next();
+}
   // For all other routes, allow access
   return NextResponse.next();
 }
@@ -71,5 +77,7 @@ export const config = {
     '/api/products/:path*',
     '/api/orders/:path*',
     '/api/users/:path*',
+    '/nap-tien',
+    '/nap-tien/:path*',
   ]
 };

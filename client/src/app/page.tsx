@@ -1,12 +1,21 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import NoticeModal from "@/components/ui/NoticeModal";
 // import Link from "next/link";
 
-export default async function Home() {
+export default function Home() {
+  const [showNotice, setShowNotice] = useState(false);
+
+  useEffect(() => {
+    // Hiện modal khi vào trang, có thể thêm logic lưu cookie/localStorage nếu muốn chỉ hiện 1 lần/ngày
+    setShowNotice(true);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col">
-
+      <NoticeModal open={showNotice} onClose={() => setShowNotice(false)} />
       <main className="flex-grow">
         {/* Banner and Top-up Section */}
         <section className="py-8">
@@ -78,53 +87,6 @@ export default async function Home() {
             </div>
           </div>
         </section>
-
-        {/* Payment Options
-        <section className="py-8 bg-gray-50">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-8">
-              Phương thức nạp tiền
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-              <Link href="/chuyen-khoan" className="group">
-                <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                  <Image
-                    src="/images/napbank.jpg"
-                    alt="Chuyển khoản"
-                    width={200}
-                    height={200}
-                    className="w-full h-auto group-hover:scale-105 transition-transform"
-                  />
-                  <p className="text-center mt-4 font-medium">Chuyển khoản</p>
-                </div>
-              </Link>
-              <Link href="/momo" className="group">
-                <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                  <Image
-                    src="/images/napmomo.jpg"
-                    alt="Momo"
-                    width={200}
-                    height={200}
-                    className="w-full h-auto group-hover:scale-105 transition-transform"
-                  />
-                  <p className="text-center mt-4 font-medium">Ví Momo</p>
-                </div>
-              </Link>
-              <Link href="/the-cao" className="group">
-                <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                  <Image
-                    src="/images/napcard.jpg"
-                    alt="Thẻ cào"
-                    width={200}
-                    height={200}
-                    className="w-full h-auto group-hover:scale-105 transition-transform"
-                  />
-                  <p className="text-center mt-4 font-medium">Thẻ cào</p>
-                </div>
-              </Link>
-            </div>
-          </div>
-        </section> */}
 
         {/* Price Categories - Moved to top */}
         <section className="py-12 bg-gray-50">
@@ -268,3 +230,4 @@ export default async function Home() {
     </div>
   );
 }
+

@@ -18,10 +18,8 @@ const Menu = (props: React.SVGProps<SVGSVGElement>) => (
 
 const navLinks = [
   { href: "/nap-tien", label: "NẠP TIỀN" },
-  { href: "/lich-su-nap", label: "LỊCH SỬ NẠP" },
   { href: "/tin-tuc", label: "TIN TỨC" },
   { href: "/cay-rank", label: "CÀY RANK" },
-  { href: "/mua-the", label: "MUA THẺ" },
 ];
 
 export default function Header() {
