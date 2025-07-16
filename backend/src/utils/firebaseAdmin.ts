@@ -13,6 +13,6 @@ if (!admin.apps.length) {
     storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
   });
 }
-
+console.log('🔐 PRIVATE KEY:', process.env.FIREBASE_PRIVATE_KEY?.slice(0, 30));
 const bucket = admin.storage().bucket();
 export { bucket };
