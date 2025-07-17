@@ -40,6 +40,12 @@ export default function Header() {
   };
 
   const isAuthenticated = !!userData;
+    const isAdmin = userData?.role === "admin";
+
+  // Thêm link admin nếu là admin
+  const linksToShow = isAdmin
+    ? [...navLinks, { href: "/admin", label: "ADMIN" }]
+    : navLinks;
 
   return (
     <header className="w-full min-h-[64px] shadow-md sticky top-0 z-50 bg-white border-b border-[#eee]">
@@ -55,7 +61,7 @@ export default function Header() {
           <span className="font-bold text-[22px] text-[#090c12] hidden sm:block">ShopTmin.com</span>
         </Link>
         <nav className="hidden md:flex gap-2 xl:gap-4 mx-2 flex-1 justify-center">
-          {navLinks.map(link => (
+          {linksToShow.map(link => (
             <Link
               key={link.href}
               href={link.href}
@@ -111,7 +117,7 @@ export default function Header() {
       </div>
       {mobileOpen && (
         <div className="md:hidden absolute top-16 left-0 right-0 bg-white shadow flex flex-col items-start p-4 z-40 gap-2 border-b">
-          {navLinks.map(link => (
+          {linksToShow.map(link => (
             <Link
               key={link.href}
               href={link.href}

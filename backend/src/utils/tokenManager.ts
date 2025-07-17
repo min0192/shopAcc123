@@ -10,7 +10,6 @@ declare global {
         email: string;
         name: string;
         role: string;
-        phone: string;
         balance: number;
       };
     }
@@ -22,11 +21,10 @@ export const createToken = (
   email: string,
   name: string,
   role: string,
-  phone: string,
   balance: number,
   expiresIn: string
 ): string => {
-  const payload = { id, email, name, role, phone, balance };
+  const payload = { id, email, name, role, balance };
   const token = jwt.sign(
     payload,
     process.env.JWT_SECRET as string,

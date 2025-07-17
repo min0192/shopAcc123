@@ -32,6 +32,8 @@ import AddUser from './actions/AddUser';
 import EditUser from './actions/EditUser';
 import DeleteUser from './actions/DeleteUser';
 import { getAllUsers } from '@/getApi/userApi';
+import AdminSidebar from '../adminSidebar/AdminSidebar';
+
 
 export default function UserManager() {
   const [users, setUsers] = useState<User[]>([]);
@@ -103,6 +105,9 @@ export default function UserManager() {
   };
 
   return (
+    <div className="flex min-h-screen">
+      <AdminSidebar />
+      <main className="flex-1 p-6">
     <div className="container mx-auto py-10">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Quản lý tài khoản</h1>
@@ -199,6 +204,8 @@ export default function UserManager() {
           </Pagination>
         </div>
       )}
+    </div>
+      </main>
     </div>
   );
 } 

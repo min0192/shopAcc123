@@ -27,6 +27,7 @@ import { EditProduct } from './actions/EditProduct';
 import { DeleteProduct } from './actions/DeleteProduct';
 import { Product } from '@/types/product';
 import { getAllProducts, updateProduct, deleteProduct, createProduct } from '@/getApi/productApi';
+import AdminSidebar from '../adminSidebar/AdminSidebar';
 // const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
 export default function ProductManager() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -130,6 +131,9 @@ export default function ProductManager() {
   };
 
   return (
+    <div className="flex min-h-screen">
+      <AdminSidebar />
+      <main className="flex-1 p-6">
     <div className="container mx-auto py-10">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Quản lý acc</h1>
@@ -254,6 +258,8 @@ export default function ProductManager() {
           </Pagination>
         </div>
       )}
+    </div>
+    </main>
     </div>
   );
 } 

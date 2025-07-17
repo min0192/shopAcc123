@@ -10,7 +10,7 @@ import bcrypt from 'bcryptjs';
 // @access  Public
 export const registerUser = async (req: Request, res: Response) => {
   try {
-    const { email, phone, password, name } = req.body;
+    const { email, password, name } = req.body;
 
     const userExists = await User.findOne({ email });
 
@@ -24,7 +24,6 @@ export const registerUser = async (req: Request, res: Response) => {
 
     const user = await User.create({
       email,
-      phone,
       password: hashedPassword,
       name,
     });
@@ -35,7 +34,6 @@ export const registerUser = async (req: Request, res: Response) => {
         user.email,
         user.name,
         user.role,
-        user.phone,
         user.balance,
         '1d'
       );
@@ -90,7 +88,6 @@ export const loginUser = async (req: Request, res: Response) => {
         user.email,
         user.name,
         user.role,
-        user.phone,
         user.balance,
         '1d'
       );
@@ -148,7 +145,6 @@ export const updateUserProfile = async (req: Request, res: Response) => {
     if (user) {
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
-      user.phone = req.body.phone || user.phone;
 
       if (req.body.password) {
         const salt = await bcrypt.genSalt(10);
@@ -161,7 +157,6 @@ export const updateUserProfile = async (req: Request, res: Response) => {
         updatedUser.email,
         updatedUser.name,
         updatedUser.role,
-        updatedUser.phone,
         updatedUser.balance,
         '1d'
       );
@@ -227,7 +222,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
 // @access  Private/Admin
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const { email, phone, password, name, balance, role } = req.body;
+    const { email, password, name, balance, role } = req.body;
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({ message: 'User already exists' });
@@ -236,7 +231,6 @@ export const createUser = async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(password, salt);
     const user = await User.create({
       email,
-      phone,
       password: hashedPassword,
       name,
       balance,
