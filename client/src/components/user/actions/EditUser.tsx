@@ -20,7 +20,6 @@ export default function EditUser({ user, onEdit }: EditUserProps) {
     name: user.name,
     email: user.email,
     password: '',
-    phone: user.phone || '',
     balance: user.balance || 0,
     role: user.role as 'user' | 'admin' | 'seller',
   });
@@ -36,7 +35,6 @@ export default function EditUser({ user, onEdit }: EditUserProps) {
         name: formData.name,
         email: formData.email,
         password: formData.password,
-        phone: formData.phone,
         balance: formData.balance,
         role: formData.role,
         updatedAt: user.updatedAt,
@@ -98,15 +96,6 @@ export default function EditUser({ user, onEdit }: EditUserProps) {
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
               placeholder="Để trống nếu không đổi"
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="edit-phone">Phone</Label>
-            <Input
-              id="edit-phone"
-              type="tel"
-              value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
             />
           </div>
           <div className="grid gap-2">

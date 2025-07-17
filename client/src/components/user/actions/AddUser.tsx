@@ -19,7 +19,6 @@ export default function AddUser({ onAdd }: AddUserProps) {
     name: '',
     email: '',
     password: '',
-    phone: '',
     balance: 0,
     role: 'user',
   });
@@ -31,7 +30,7 @@ export default function AddUser({ onAdd }: AddUserProps) {
     try {
       await createUser(formData as User);
       setIsOpen(false);
-      setFormData({ name: '', email: '', password: '', phone: '', balance: 0, role: 'user' });
+      setFormData({ name: '', email: '', password: '', balance: 0, role: 'user' });
       onAdd();
       toast({
         title: "Success",
@@ -82,15 +81,6 @@ export default function AddUser({ onAdd }: AddUserProps) {
               type="password"
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="add-phone">Phone</Label>
-            <Input
-              id="add-phone"
-              type="tel"
-              value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
             />
           </div>
           <div className="grid gap-2">
