@@ -94,73 +94,77 @@ export default function Home() {
             <h2 className="text-3xl font-bold text-center mb-8">
               Acc Tự Chọn
             </h2>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                <div className="relative w-full h-[180px] mb-3">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="bg-white p-2 md:p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <div className="relative w-full h-32 md:h-[180px] mb-2 md:mb-3">
                   <Image
                     src="/images/nickgiare.gif"
                     alt="Nick Liên Quân Giá Rẻ"
                     fill
                     className="object-cover rounded-md"
+                    sizes="(max-width: 768px) 100vw, 25vw"
                   />
                 </div>
-                <h3 className="text-lg font-bold">Nick Liên Quân Giá Rẻ</h3>
-                <p className="text-gray-600 text-sm">Đã bán: 12.9K</p>
+                <h3 className="font-bold text-base md:text-lg">Nick Liên Quân Giá Rẻ</h3>
+                <p className="text-gray-600 text-xs md:text-sm">Đã bán: 12.9K</p>
                 <Link href="/account/nickgiare">
-                  <button className="mt-3 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors">
+                  <button className="mt-2 md:mt-3 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors text-sm md:text-base">
                     Mua ngay
                   </button>
                 </Link>
               </div>
-              <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                <div className="relative w-full h-[180px] mb-3">
+              <div className="bg-white p-2 md:p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <div className="relative w-full h-32 md:h-[180px] mb-2 md:mb-3">
                   <Image
                     src="/images/nickvip.png"
                     alt="Nick liên quân VIP"
                     fill
                     className="object-cover rounded-md"
+                    sizes="(max-width: 768px) 100vw, 25vw"
                   />
                 </div>
-                <h3 className="text-lg font-bold">Nick liên quân VIP</h3>
-                <p className="text-gray-600 text-sm">Đã bán: 8.5K</p>
+                <h3 className="font-bold text-base md:text-lg">Nick liên quân VIP</h3>
+                <p className="text-gray-600 text-xs md:text-sm">Đã bán: 8.5K</p>
                 <Link href="/account/nickvip">
-                  <button className="mt-3 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors">
+                  <button className="mt-2 md:mt-3 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors text-sm md:text-base">
                     Mua ngay
                   </button>
                 </Link>
               </div>
-              <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                <div className="relative w-full h-[180px] mb-3">
+              <div className="bg-white p-2 md:p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <div className="relative w-full h-32 md:h-[180px] mb-2 md:mb-3">
                   <Image
                     src="/images/nickttx.jpg"
-                    alt="Nick liên quân thông tin xấu"
+                    alt="Nick liên quân TTX"
                     fill
                     className="object-cover rounded-md"
+                    sizes="(max-width: 768px) 100vw, 25vw"
                   />
                 </div>
-                <h3 className="text-lg font-bold">
-                  Nick liên quân thông tin xấu
+                <h3 className="font-bold text-base md:text-lg">
+                  Nick liên quân TTX
                 </h3>
-                <p className="text-gray-600 text-sm">Đã bán: 5.2K</p>
+                <p className="text-gray-600 text-xs md:text-sm">Đã bán: 5.2K</p>
                 <Link href="/account/nickthongtinxau">
-                  <button className="mt-3 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors">
+                  <button className="mt-2 md:mt-3 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors text-sm md:text-base">
                     Mua ngay
                   </button>
                 </Link>
               </div>
-              <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                <div className="relative w-full h-[180px] mb-3">
+              <div className="bg-white p-2 md:p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <div className="relative w-full h-32 md:h-[180px] mb-2 md:mb-3">
                   <Image
                     src="/images/nickfreefire.png"
                     alt="Free Fire"
                     fill
                     className="object-cover rounded-md"
+                    sizes="(max-width: 768px) 100vw, 25vw"
                   />
                 </div>
-                <h3 className="text-lg font-bold">Free Fire</h3>
-                <p className="text-gray-600 text-sm">Đã bán: 3.1K</p>
+                <h3 className="font-bold text-base md:text-lg">Free Fire</h3>
+                <p className="text-gray-600 text-xs md:text-sm">Đã bán: 3.1K</p>
                 <Link href="/account/freefire">
-                  <button className="mt-3 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors">
+                  <button className="mt-2 md:mt-3 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors text-sm md:text-base">
                     Mua ngay
                   </button>
                 </Link>
@@ -172,54 +176,57 @@ export default function Home() {
         {/* other Categories - Moved to top */}
         <section className="py-12 bg-gray-50">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
               Dịch Vụ game
             </h2>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                <div className="relative w-full h-[180px] mb-3">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="bg-white p-2 md:p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <div className="relative w-full h-32 md:h-[180px] mb-2 md:mb-3">
                   <Image
                     src="https://cellphones.com.vn/sforum/wp-content/uploads/2022/04/Screenshot_7-7.png"
                     alt="Cày thuê Liên Quân"
                     fill
                     className="object-cover rounded-md"
+                    sizes="(max-width: 768px) 100vw, 25vw"
                   />
                 </div>
-                <h3 className="text-lg font-bold">Cày thuê Liên Quân</h3>
-                <p className="text-gray-600 text-sm">Đã bán: 12.9K</p>
-                <button className="mt-3 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors">
+                <h3 className="font-bold text-base md:text-lg">Cày thuê Liên Quân</h3>
+                <p className="text-gray-600 text-xs md:text-sm">Đã bán: 12.9K</p>
+                <button className="mt-2 md:mt-3 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors text-sm md:text-base">
                   Thuê ngay
                 </button>
               </div>
-              <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                <div className="relative w-full h-[180px] mb-3">
+              <div className="bg-white p-2 md:p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <div className="relative w-full h-32 md:h-[180px] mb-2 md:mb-3">
                   <Image
                     src="https://kenh14cdn.com/203336854389633024/2021/3/14/photo-1-16157134109511814216671.jpg"
                     alt="Cày thuê Tốc chiến"
                     fill
                     className="object-cover rounded-md"
+                    sizes="(max-width: 768px) 100vw, 25vw"
                   />
                 </div>
-                <h3 className="text-lg font-bold">Cày thuê Tốc chiến</h3>
-                <p className="text-gray-600 text-sm">Đã bán: 8.5K</p>
-                <button className="mt-3 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors">
+                <h3 className="font-bold text-base md:text-lg">Cày thuê Tốc chiến</h3>
+                <p className="text-gray-600 text-xs md:text-sm">Đã bán: 8.5K</p>
+                <button className="mt-2 md:mt-3 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors text-sm md:text-base">
                   Thuê ngay
                 </button>
               </div>
-              <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                <div className="relative w-full h-[180px] mb-3">
+              <div className="bg-white p-2 md:p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <div className="relative w-full h-32 md:h-[180px] mb-2 md:mb-3">
                   <Image
                     src="https://topchuyengia.vn/uploads/images/original_images/lam-sao-de-ban-acc-lien-quan-uy-tin-2021-3076.jpg"
                     alt="Thu mua acc liên quân"
                     fill
                     className="object-cover rounded-md"
+                    sizes="(max-width: 768px) 100vw, 25vw"
                   />
                 </div>
-                <h3 className="text-lg font-bold">
+                <h3 className="font-bold text-base md:text-lg">
                   Thu mua acc liên quân
                 </h3>
-                <p className="text-gray-600 text-sm">Đã bán: 5.2K</p>
-                <button className="mt-3 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors">
+                <p className="text-gray-600 text-xs md:text-sm">Đã bán: 5.2K</p>
+                <button className="mt-2 md:mt-3 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors text-sm md:text-base">
                   Bán acc ngay
                 </button>
               </div>

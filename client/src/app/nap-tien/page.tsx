@@ -1,17 +1,17 @@
 "use client";
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Copy } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-import Image from 'next/image';
-import { createPayOSDeposit } from '@/getApi/depositApi';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Copy } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import Image from "next/image";
+import { createPayOSDeposit } from "@/getApi/depositApi";
 
 export default function DepositPage() {
-  const [amount, setAmount] = useState('');
-  const [transferContent, setTransferContent] = useState('');
-  const [qrImage, setQrImage] = useState('');
+  const [amount, setAmount] = useState("");
+  const [transferContent, setTransferContent] = useState("");
+  const [qrImage, setQrImage] = useState("");
   const { toast } = useToast();
 
   const handleGenerateQR = async () => {
@@ -25,7 +25,9 @@ export default function DepositPage() {
     }
 
     try {
-      const response = await createPayOSDeposit(Number(amount)) as { transferContent: string };
+      const response = (await createPayOSDeposit(Number(amount))) as {
+        transferContent: string;
+      };
       const content = response.transferContent;
       setTransferContent(content);
 
@@ -38,7 +40,12 @@ export default function DepositPage() {
       });
     } catch (error: unknown) {
       let message = "Không thể tạo đơn nạp tiền. Vui lòng thử lại.";
-      if (error && typeof error === "object" && "message" in error && typeof (error as { message?: string }).message === "string") {
+      if (
+        error &&
+        typeof error === "object" &&
+        "message" in error &&
+        typeof (error as { message?: string }).message === "string"
+      ) {
         message = (error as { message: string }).message;
       }
       toast({
@@ -49,20 +56,54 @@ export default function DepositPage() {
     }
   };
   return (
-    <div className="max-w-xl mx-auto space-y-4">
-      <h2 className="text-2xl font-bold text-center">Nạp tiền - Ngân hàng tự động</h2>
+    <div className="max-w-xl mx-auto space-y-4 p-6 bg-white rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold text-center">
+        Nạp tiền - Ngân hàng tự động
+      </h2>
 
       <Label htmlFor="amount">Số tiền (VNĐ)</Label>
-      <Input id="amount" value={amount} onChange={e => setAmount(e.target.value)} type="number" />
+      <Input
+        id="amount"
+        value={amount}
+        onChange={(e) => setAmount(e.target.value)}
+        type="number"
+      />
       <Button onClick={handleGenerateQR}>Tạo mã QR</Button>
 
       {transferContent && (
         <div className="space-y-2">
-          <p><strong>Nội dung chuyển khoản:</strong></p>
+          <p>
+            <strong>
+              Số Tài Khoản: 0855809219{" "}
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => navigator.clipboard.writeText(transferContent)}
+              >
+                <Copy size={16} />Sao Chép
+              </Button>
+            </strong>
+          </p>
+          <p>
+            <strong>Ngân hàng: Mb Bank</strong>
+          </p>
+          <p>
+            <strong>Chủ tài khoản: DOAN TUAN MINH</strong>
+          </p>
+          <p>
+            <strong>Nội dung chuyển khoản:</strong>
+          </p>
           <div className="flex items-center gap-2">
-            <code className="bg-gray-100 p-2 rounded font-mono">{transferContent}</code>
-            <Button size="sm" variant="outline" onClick={() => navigator.clipboard.writeText(transferContent)}>
-              <Copy size={16} />
+            <code className="bg-gray-100 p-2 rounded font-mono">
+              {transferContent}
+            </code>
+            <Button
+              
+              size="sm"
+              variant="outline"
+              onClick={() => navigator.clipboard.writeText(transferContent)}
+            >
+              <Copy size={16} />Sao Chép
             </Button>
           </div>
         </div>
@@ -70,7 +111,14 @@ export default function DepositPage() {
 
       {qrImage && (
         <div className="flex justify-center mt-4">
-          <Image src={qrImage} alt="QR Code" className="w-64 h-64" />
+          <Image
+            src={qrImage}
+            alt="QR Code"
+            width={256}
+            height={256}
+            className="w-64 h-64"
+            unoptimized // Thêm dòng này nếu ảnh ngoài không load được qua loader Next.js
+          />
         </div>
       )}
 

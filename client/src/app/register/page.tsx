@@ -54,7 +54,7 @@ export default function RegisterPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mx-auto max-w-md">
-        <h1 className="mb-8 text-center text-3xl font-bold">Create Account</h1>
+        <h1 className="mb-8 text-center text-3xl font-bold">Đăng kí tài khoản</h1>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700">
@@ -84,7 +84,7 @@ export default function RegisterPage() {
           </div>
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              Password
+              Mật khẩu
             </label>
             <input
               type="password"

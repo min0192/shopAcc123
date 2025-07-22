@@ -9,12 +9,14 @@ import {
   createUser,
   updateUser,
   deleteUser,
+  changeUserPassword,
 } from "../controllers/userController";
 import { verifyToken } from "../utils/tokenManager";
 
 const router = express.Router();
 
 router.post("/register", registerUser);
+router.post("/chang-password", verifyToken, changeUserPassword as any);
 router.post("/login", loginUser);
 router.get("/", verifyToken, getAllUsers as any);
 router

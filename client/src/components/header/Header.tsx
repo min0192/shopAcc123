@@ -48,24 +48,23 @@ export default function Header() {
     : navLinks;
 
   return (
-    <header className="w-full min-h-[64px] shadow-md sticky top-0 z-50 bg-white border-b border-[#eee]">
+    <header className="w-full min-h-[64px] shadow-md sticky top-0 z-50 bg-black border-b border-[#eee]">
       <div className="container mx-auto px-2 sm:px-4 flex items-center justify-between h-16">
         <Link href="/" className="flex items-center gap-2">
           <img
             src="/images/logo.png"
             alt="ShopTmin Logo"
-            width={46}
-            height={46}
+            width={60} // tăng logo to lên
+            height={60}
             className="rounded-full bg-[#bcab96]"
           />
-          <span className="font-bold text-[22px] text-[#090c12] hidden sm:block">ShopTmin.com</span>
         </Link>
         <nav className="hidden md:flex gap-2 xl:gap-4 mx-2 flex-1 justify-center">
           {linksToShow.map(link => (
             <Link
               key={link.href}
               href={link.href}
-              className="px-3 py-2 rounded-md text-[#5e383e] font-medium hover:bg-[#bcab96]/10 transition-colors text-sm"
+              className="px-4 py-2 rounded-md text-white font-bold text-md tracking-wide font-sans hover:bg-[#bcab96]/20 transition-colors"
             >
               {link.label}
             </Link>
@@ -79,7 +78,7 @@ export default function Header() {
           {isAuthenticated ? (
             <>
               <Link
-                href="/profile"
+                href="/user"
                 className="h-8 w-8 flex items-center justify-center rounded-full border border-[#eee]"
               >
                 <UserIcon className="h-7 w-7 rounded-full text-[#499bd2]" />
@@ -116,12 +115,12 @@ export default function Header() {
         </div>
       </div>
       {mobileOpen && (
-        <div className="md:hidden absolute top-16 left-0 right-0 bg-white shadow flex flex-col items-start p-4 z-40 gap-2 border-b">
+        <div className="md:hidden absolute top-16 left-0 right-0 bg-black shadow flex flex-col items-start p-4 z-40 gap-2 border-b">
           {linksToShow.map(link => (
             <Link
               key={link.href}
               href={link.href}
-              className="w-full px-3 py-2 rounded-md text-[#5e383e] font-medium hover:bg-[#bcab96]/10 transition-colors text-base"
+              className="w-full px-4 py-3 rounded-md text-white font-bold text-xl tracking-wide font-sans hover:bg-[#bcab96]/20 transition-colors"
               onClick={() => setMobileOpen(false)}
             >
               {link.label}

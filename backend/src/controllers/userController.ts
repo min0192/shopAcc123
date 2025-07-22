@@ -299,6 +299,36 @@ export const deleteUser = async (req: Request, res: Response) => {
   }
 };
 
+// @desc    Change user password
+// @route   PUT /api/users/change-password
+// @access  Private
+export const changeUserPassword = async (req: Request, res: Response) => {
+  try {
+    if (!req.user) return res.status(401).json({ message: 'Unauthorized' });
+
+    const { oldPassword, newPassword } = req.body;
+    if (!oldPassword || !newPassword) {
+      return res.status(400).json({ message: "Missing old or new password" });
+    }
+
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Mật khẩu cũ không đúng" });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(newPassword, salt);
+    await user.save();
+
+    res.json({ message: "Đổi mật khẩu thành công" });
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
 // Generate JWT
 const generateToken = (id: string) => {
   if (!process.env.JWT_SECRET) {
@@ -307,4 +337,4 @@ const generateToken = (id: string) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: '30d',
   });
-}; 
+};

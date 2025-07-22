@@ -253,3 +253,29 @@ export const updateUserBalance = async (amount: number) => {
   }
 };
 
+export const changePassword = async (oldPassword: string, newPassword: string) => {
+  try {
+    const token = getCookie("infor");
+    const res = await axios.put(
+      `${API_URL}/users/change-password`,
+      { oldPassword, newPassword },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return res.data;
+  } catch (error: unknown) {
+    let errorMessage = "Đổi mật khẩu thất bại.";
+    if (isAxiosErrorLike(error) && error.response.data?.message) {
+      errorMessage = error.response.data.message;
+    } else if (hasMessageProperty(error)) {
+      errorMessage = error.message;
+    } else if (typeof error === "string") {
+      errorMessage = error;
+    }
+    throw new Error(errorMessage);
+  }
+};
+

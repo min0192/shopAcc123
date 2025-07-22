@@ -80,7 +80,11 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="mt-6 pt-3 border-t border-gray-700 text-center text-xs md:text-sm">
-          <p>&copy; {new Date().getFullYear()} ShopAcc. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} ShopAcc. Phát triển bởi Tuấn Minh.</p>
+          Liên hệ:
+          <a href="https://zalo.me/0855809219" target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:underline ml-1">
+            Zalo 0855809219
+          </a>
         </div>
       </div>
     </footer>
