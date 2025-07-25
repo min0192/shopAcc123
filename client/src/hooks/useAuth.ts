@@ -37,7 +37,7 @@ export function useAuth() {
 
   useEffect(() => {
     // Lấy token từ cookie 'info'
-    const token = getCookie('info') as string | undefined;
+    const token = getCookie('infor') as string | undefined;
     let user: userJwtPayload | null = null;
 
     if (token) {

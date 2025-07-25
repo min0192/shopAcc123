@@ -101,3 +101,15 @@ export const cancelExpiredDeposits = async () => {
     }
   }
 };
+
+// controllers/depositController.ts
+export const getUserDeposits = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId;
+    const deposits = await PendingDeposit.find({ userId }).sort({ createdAt: -1 });
+    return res.json(deposits); // ✅ trả về mảng luôn
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Lỗi server" });
+  }
+};

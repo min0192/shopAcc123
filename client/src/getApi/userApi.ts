@@ -1,6 +1,7 @@
 import { User } from "@/types/user";
 import axios from "axios";
 import { getCookie } from "cookies-next/client";
+import { DepositHistoryItem } from "@/types/deposit";
 
 // Define a type for the data needed to create a user
 interface CreateUserPayload {
@@ -278,4 +279,25 @@ export const changePassword = async (oldPassword: string, newPassword: string) =
     throw new Error(errorMessage);
   }
 };
+
+export async function getUserDeposits(userId: string): Promise<DepositHistoryItem[]> {
+  const token = getCookie("infor");
+  const res = await fetch(`${API_URL}/deposit/${userId}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!res.ok) {
+    throw new Error("Lỗi khi lấy dữ liệu nạp tiền");
+  }
+
+  const data = await res.json();
+  console.log("Deposit raw response:", data);
+
+  // Optional: validate mảng
+  if (!Array.isArray(data)) {
+    throw new Error("Dữ liệu trả về không hợp lệ");
+  }
+
+  return data as DepositHistoryItem[];
+}
 
