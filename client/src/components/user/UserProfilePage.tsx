@@ -31,7 +31,7 @@ export default function UserProfilePage() {
 
   const router = useRouter();
   useEffect(() => {
-    if (tab && SIDEBAR_ITEMS.find(item => item.key === tab)) {
+    if (tab && SIDEBAR_ITEMS.find((item) => item.key === tab)) {
       setSelected(tab);
     }
   }, [tab]);
@@ -69,14 +69,16 @@ export default function UserProfilePage() {
   }, [selected, userInfo]);
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      {/* Nút mở sidebar cho mobile */}
-      <button
-        className="md:hidden fixed top-4 left-4 z-30 bg-blue-600 text-white p-2 rounded"
-        onClick={() => setSidebarOpen(true)}
-      >
-        ☰ Menu
-      </button>
+    <div className="min-h-screen bg-gray-50 md:flex">
+      {/* Nút mở sidebar luôn hiển thị */}
+      {!sidebarOpen && (
+        <button
+          className="md:hidden fixed top-4 left-4 z-50 bg-blue-600 text-white p-2 rounded"
+          onClick={() => setSidebarOpen(true)}
+        >
+          ☰ Menu
+        </button>
+      )}
 
       {/* Sidebar */}
       <aside
@@ -89,9 +91,9 @@ export default function UserProfilePage() {
       >
         <div className="p-6 font-bold text-xl flex justify-between items-center">
           Tài khoản
-          {/* Nút đóng sidebar trên mobile */}
+          {/* Nút đóng sidebar luôn hiển thị */}
           <button
-            className="md:hidden text-2xl"
+            className="text-2xl"
             onClick={() => setSidebarOpen(false)}
             aria-label="Đóng menu"
           >
@@ -107,7 +109,7 @@ export default function UserProfilePage() {
               }`}
               onClick={() => {
                 setSelected(item.key);
-                setSidebarOpen(false); // Đóng sidebar khi chọn menu trên mobile
+                setSidebarOpen(false);
               }}
             >
               {item.label}
@@ -116,7 +118,7 @@ export default function UserProfilePage() {
         </nav>
       </aside>
 
-      {/* Overlay khi sidebar mở trên mobile */}
+      {/* Overlay khi sidebar mở */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-30 z-30 md:hidden"
@@ -124,8 +126,8 @@ export default function UserProfilePage() {
         />
       )}
 
-      {/* Main */}
-      <main className="flex-1 p-8 md:ml-64">
+      {/* Main content */}
+      <main className="flex-1 p-8">
         {selected === "info" &&
           (loadingUser ? (
             <div className="text-gray-500">Đang tải thông tin tài khoản...</div>
@@ -152,7 +154,7 @@ function AccountInfo({ user }: { user: userJwtPayload }) {
         Tên: <span className="font-semibold">{user.name}</span>
       </div>
       <div className="mb-2">
-        Số dư: {" "}
+        Số dư:{" "}
         <span className="font-semibold">
           {user.balance?.toLocaleString()} VNĐ
         </span>
@@ -298,4 +300,4 @@ function DepositHistory({ data }: { data: DepositHistoryItem[] }) {
       </div>
     </div>
   );
-} 
+}
