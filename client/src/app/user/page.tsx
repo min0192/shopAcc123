@@ -1,5 +1,10 @@
+import { Suspense } from "react";
 import UserProfilePage from "../../components/user/UserProfilePage";
 
 export default function Page() {
-  return <UserProfilePage />;
+  return (
+    <Suspense>
+      <UserProfilePage />
+    </Suspense>
+  );
 }
